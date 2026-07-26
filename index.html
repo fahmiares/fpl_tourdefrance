@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FPL Tour de France 2026/27</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=2">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Premier_League_Logo.svg/120px-Premier_League_Logo.svg.png" alt="EPL" class="epl-logo">
+                <div class="logo-text-group">
+                    <span class="fpl-text">FPL</span>
+                    <div class="tdf-logo-text">
+                        <span class="tdf-tour">Tour</span>
+                        <span class="tdf-defrance">de France</span>
+                        <div class="tdf-circle"></div>
+                    </div>
+                    <span class="season">26/27</span>
+                </div>
+            </div>
+            <div class="nav-links">
+                <button class="nav-btn active" data-target="dashboard-view"><i class="ri-dashboard-line"></i> Dashboard</button>
+                <button class="nav-btn" data-target="admin-view"><i class="ri-settings-4-line"></i> Admin Panel</button>
+            </div>
+        </nav>
+
+        <main>
+            <!-- DASHBOARD VIEW -->
+            <section id="dashboard-view" class="view-section active">
+                <div class="dashboard-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="color: var(--white); font-weight: 800; font-size: 1.5rem;">Current Standings</h2>
+                    <button id="btn-download-image" class="btn btn-outline" style="color: #00ff87; border-color: rgba(0, 255, 135, 0.3);"><i class="ri-camera-lens-line"></i> Share to Group</button>
+                </div>
+
+                <div id="capture-area">
+                    <div class="race-timeline">
+                        <h3 class="timeline-title"><i class="ri-route-line"></i> Season Etape Route Map</h3>
+                    <div class="timeline-track">
+                        <div class="stage" id="stage-1"><div class="stage-dot"></div><div class="stage-name">Etape 1</div><div class="stage-gw">GW 1-4</div></div>
+                        <div class="stage" id="stage-2"><div class="stage-dot"></div><div class="stage-name">Etape 2</div><div class="stage-gw">GW 5-8</div></div>
+                        <div class="stage" id="stage-3"><div class="stage-dot"></div><div class="stage-name">Etape 3</div><div class="stage-gw">GW 9-12</div></div>
+                        <div class="stage" id="stage-4"><div class="stage-dot"></div><div class="stage-name">Etape 4</div><div class="stage-gw">GW 13-16</div></div>
+                        <div class="stage" id="stage-5"><div class="stage-dot"></div><div class="stage-name">Etape 5</div><div class="stage-gw">GW 17-20</div></div>
+                        <div class="stage" id="stage-6"><div class="stage-dot"></div><div class="stage-name">Etape 6</div><div class="stage-gw">GW 21-24</div></div>
+                        <div class="stage" id="stage-7"><div class="stage-dot"></div><div class="stage-name">Etape 7</div><div class="stage-gw">GW 25-28</div></div>
+                        <div class="stage" id="stage-8"><div class="stage-dot"></div><div class="stage-name">Etape 8</div><div class="stage-gw">GW 29-32</div></div>
+                        <div class="stage final-stage" id="stage-9"><div class="stage-dot finish-line"><i class="ri-flag-checkered-fill"></i></div><div class="stage-9">Etape 9</div><div class="stage-gw">GW 33-38</div></div>
+                    </div>
+                </div>
+
+                <div class="podium-container">
+                    <div class="podium-card yellow-jersey">
+                        <div class="jersey-icon" style="width: 85px; height: 85px; margin: 0 auto 15px;">
+                            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));">
+                              <path d="M 70,30 C 100,45 130,30 130,30 L 170,55 L 155,75 L 135,50 L 130,170 L 70,170 L 65,50 L 45,75 L 30,55 Z" fill="#facc15" stroke="#ca8a04" stroke-width="1.5" stroke-linejoin="round"/>
+                              <line x1="100" y1="38" x2="100" y2="170" stroke="rgba(0,0,0,0.15)" stroke-width="3" stroke-linecap="round"/>
+                              <path d="M 75,30 C 100,45 125,30 125,30 L 120,18 C 100,30 80,18 80,18 Z" fill="#1f2937"/>
+                            </svg>
+                        </div>
+                        <h2 style="margin-bottom: 5px;">Yellow Jersey</h2>
+                        <p class="jersey-desc">Overall Winner (Most Points)</p>
+                        <div class="winner-info" id="yellow-winner">
+                            <span class="val" style="color: var(--text-muted); font-size: 0.9rem;">Menunggu Data...</span>
+                        </div>
+                    </div>
+                    
+                    <div class="podium-card green-jersey">
+                        <div class="jersey-icon" style="width: 85px; height: 85px; margin: 0 auto 15px;">
+                            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));">
+                              <path d="M 70,30 C 100,45 130,30 130,30 L 170,55 L 155,75 L 135,50 L 130,170 L 70,170 L 65,50 L 45,75 L 30,55 Z" fill="#22c55e" stroke="#15803d" stroke-width="1.5" stroke-linejoin="round"/>
+                              <line x1="100" y1="38" x2="100" y2="170" stroke="rgba(0,0,0,0.15)" stroke-width="3" stroke-linecap="round"/>
+                              <path d="M 75,30 C 100,45 125,30 125,30 L 120,18 C 100,30 80,18 80,18 Z" fill="#1f2937"/>
+                            </svg>
+                        </div>
+                        <h2 style="margin-bottom: 5px;">Green Jersey</h2>
+                        <p class="jersey-desc">Sprint King (Sprint Points)</p>
+                        <div class="winner-info" id="green-winner">
+                            <span class="val" style="color: var(--text-muted); font-size: 0.9rem;">Menunggu Data...</span>
+                        </div>
+                    </div>
+                    
+                    <div class="podium-card polkadot-jersey">
+                        <div class="jersey-icon" style="width: 85px; height: 85px; margin: 0 auto 15px;">
+                            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));">
+                              <defs>
+                                <pattern id="polkadots" x="0" y="0" width="25" height="25" patternUnits="userSpaceOnUse">
+                                  <rect width="25" height="25" fill="#ffffff"/>
+                                  <circle fill="#ef4444" cx="12.5" cy="12.5" r="6"></circle>
+                                </pattern>
+                              </defs>
+                              <path d="M 70,30 C 100,45 130,30 130,30 L 170,55 L 155,75 L 135,50 L 130,170 L 70,170 L 65,50 L 45,75 L 30,55 Z" fill="url(#polkadots)" stroke="#d1d5db" stroke-width="1.5" stroke-linejoin="round"/>
+                              <line x1="100" y1="38" x2="100" y2="170" stroke="rgba(0,0,0,0.15)" stroke-width="3" stroke-linecap="round"/>
+                              <path d="M 75,30 C 100,45 125,30 125,30 L 120,18 C 100,30 80,18 80,18 Z" fill="#1f2937"/>
+                            </svg>
+                        </div>
+                        <h2>Polka Dot Jersey</h2>
+                        <p class="jersey-desc">King of the Mountains (Mountain Pts)</p>
+                        <div class="winner-info" id="polkadot-winner">
+                            <h3 class="manager-name">Waiting for Data</h3>
+                            <p class="team-name">-</p>
+                            <div class="points"><span class="val">0</span> mountain pts</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rankings-grid">
+                    <!-- Yellow Ranking -->
+                    <div class="ranking-card">
+                        <div class="card-header yellow-header">
+                            <h3><i class="ri-trophy-line"></i> Overall Standings</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="ranking-table" id="yellow-table">
+                                <thead>
+                                    <tr>
+                                        <th>Pos</th>
+                                        <th>Cyclist & Team</th>
+                                        <th class="text-center">Total<br>Points</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Rendered via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Green Ranking -->
+                    <div class="ranking-card">
+                        <div class="card-header green-header">
+                            <h3><i class="ri-flashlight-line"></i> Sprint Standings</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="ranking-table" id="green-table">
+                                <thead>
+                                    <tr>
+                                        <th>Pos</th>
+                                        <th>Cyclist & Team</th>
+                                        <th class="text-center">Sprint<br>Points</th>
+                                        <th class="text-center" title="Highest GW Score (Tie-break)">Max<br>GW</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Rendered via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Polkadot Ranking -->
+                    <div class="ranking-card">
+                        <div class="card-header polkadot-header">
+                            <h3><i class="ri-landscape-line"></i> King of the Mountains Standings</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="ranking-table" id="polkadot-table">
+                                <thead>
+                                    <tr>
+                                        <th>Pos</th>
+                                        <th>Cyclist & Team</th>
+                                        <th class="text-center">Mountain<br>Points</th>
+                                        <th class="text-center" title="Highest Stage Score (Tie-break)">Max<br>Etape</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Rendered via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                </div> <!-- End of capture-area -->
+            </section>
+
+            <!-- ADMIN VIEW -->
+            <section id="admin-view" class="view-section">
+                <div class="admin-header">
+                    <h2>
+                        <i class="ri-edit-box-line"></i> GW Recap & Data Entry 
+                        <span id="total-managers-count" style="font-size: 0.9rem; font-weight: 400; background: rgba(14, 165, 233, 0.2); color: #0ea5e9; padding: 4px 10px; border-radius: 20px; margin-left: 10px;">0 Cyclist</span>
+                    </h2>
+                    <div class="admin-actions">
+                        <div class="search-box">
+                            <i class="ri-search-line"></i>
+                            <input type="text" id="admin-search" placeholder="Cari Nama / Tim..." class="search-input">
+                        </div>
+                        <button id="btn-add-manager" class="btn btn-primary"><i class="ri-user-add-line"></i> Tambah Cyclist</button>
+                        <button id="btn-save-data" class="btn btn-success"><i class="ri-save-line"></i> Simpan Data</button>
+                        <button id="btn-reset-all" class="btn btn-danger"><i class="ri-delete-bin-2-line"></i> Reset Semua Data</button>
+                        <button id="btn-auto-sync" class="btn btn-primary" style="background-color: #0ea5e9;"><i class="ri-refresh-line"></i> Auto Sync FPL</button>
+                        <button id="btn-sync-zero" class="btn btn-outline" style="color: #0ea5e9; border-color: rgba(14, 165, 233, 0.3);"><i class="ri-refresh-line"></i> Resume Sync (0 Poin)</button>
+                        <button id="btn-export-data" class="btn btn-outline"><i class="ri-download-line"></i> Export JSON</button>
+                        <label class="btn btn-outline">
+                            <i class="ri-upload-line"></i> Import JSON
+                            <input type="file" id="btn-import-data" accept=".json" style="display: none;">
+                        </label>
+                        <label class="btn btn-outline">
+                            <i class="ri-file-excel-line"></i> Import CSV
+                            <input type="file" id="btn-import-csv" accept=".csv" style="display: none;">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="table-responsive admin-table-container">
+                    <table class="admin-table" id="admin-table">
+                        <thead>
+                            <tr id="admin-table-head">
+                                <th class="sticky-col-aksi">Aksi</th>
+                                <th class="sticky-col-0">Nama Cyclist</th>
+                                <th class="sticky-col">Nama Tim</th>
+                                <th class="sticky-col-2">ID Tim FPL</th>
+                                <!-- GW 1 to 38 generated via JS -->
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body">
+                            <!-- Rows generated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="admin-footer">
+                    <p class="note"><i class="ri-information-line"></i> Data disimpan secara lokal di browser (localStorage). Jangan lupa untuk klik "Simpan Data" setelah melakukan perubahan.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Data berhasil disimpan!</div>
+
+    <script src="app.js"></script>
+</body>
+</html>
