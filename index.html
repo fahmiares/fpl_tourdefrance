@@ -39,9 +39,18 @@
         <main>
             <!-- DASHBOARD VIEW -->
             <section id="dashboard-view" class="view-section active">
-                <div class="dashboard-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h2 style="color: var(--white); font-weight: 800; font-size: 1.5rem;">Current Standings</h2>
-                    <button id="btn-download-image" class="btn btn-outline" style="color: #00ff87; border-color: rgba(0, 255, 135, 0.3);"><i class="ri-camera-lens-line"></i> Share to Group</button>
+                <div class="dashboard-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;">
+                    <div>
+                        <h2 style="color: var(--white); font-weight: 800; font-size: 1.5rem; margin-bottom: 5px;">Current Standings</h2>
+                        <div id="last-updated-text" style="color: var(--text-muted); font-size: 0.85rem; font-style: italic;"><i class="ri-time-line"></i> Terakhir Diperbarui: <span id="last-updated-date">Sedang mengecek...</span></div>
+                    </div>
+                    <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                        <div style="position: relative;">
+                            <i class="ri-search-line" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+                            <input type="text" id="public-search" placeholder="Cari Tim / Cyclist..." style="padding: 10px 15px 10px 40px; border-radius: 25px; border: 1px solid var(--card-border); background: rgba(0,0,0,0.2); color: white; outline: none; width: 250px; font-family: inherit; font-size: 0.9rem;">
+                        </div>
+                        <button id="btn-download-image" class="btn btn-outline" style="color: #00ff87; border-color: rgba(0, 255, 135, 0.3);"><i class="ri-camera-lens-line"></i> Share to Group</button>
+                    </div>
                 </div>
 
                 <div id="capture-area">
@@ -72,7 +81,9 @@
                         <h2 style="margin-bottom: 5px;">Yellow Jersey</h2>
                         <p class="jersey-desc">Overall Winner (Most Points)</p>
                         <div class="winner-info" id="yellow-winner">
-                            <span class="val" style="color: var(--text-muted); font-size: 0.9rem;">Menunggu Data...</span>
+                            <h3 class="manager-name">Waiting for Data</h3>
+                            <p class="team-name">-</p>
+                            <div class="points"><span class="val">0</span> pts</div>
                         </div>
                     </div>
                     
@@ -87,7 +98,9 @@
                         <h2 style="margin-bottom: 5px;">Green Jersey</h2>
                         <p class="jersey-desc">Sprint King (Sprint Points)</p>
                         <div class="winner-info" id="green-winner">
-                            <span class="val" style="color: var(--text-muted); font-size: 0.9rem;">Menunggu Data...</span>
+                            <h3 class="manager-name">Waiting for Data</h3>
+                            <p class="team-name">-</p>
+                            <div class="points"><span class="val">0</span> sprint pts</div>
                         </div>
                     </div>
                     

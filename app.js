@@ -65,6 +65,16 @@ async function loadData() {
     try {
         const response = await fetch('data.json', { cache: "no-store" });
         if (response.ok) {
+            const lastMod = response.headers.get('Last-Modified');
+            const dateEl = document.getElementById('last-updated-date');
+            if (lastMod && dateEl) {
+                const date = new Date(lastMod);
+                const formatter = new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+                dateEl.textContent = formatter.format(date) + ' WIB';
+            } else if (dateEl) {
+                dateEl.textContent = 'Data Lokal (Belum Ter-publish)';
+            }
+            
             managersData = await response.json();
             // Sinkronkan localStorage admin dengan data server terbaru
             localStorage.setItem('fplTourDeFranceData', JSON.stringify(managersData));
@@ -192,7 +202,18 @@ function renderAdminTable() {
 
 // Calculation Logic
 function calculateAndRenderDashboard() {
-    if (managersData.length === 0) return;
+    if (managersData.length === 0) {
+        const emptyWinnerHTML = (label) => `<h3 class="manager-name">-</h3><p class="team-name">Belum Ada</p><div class="points"><span class="val">0</span> ${label}</div>`;
+        const yW = document.getElementById('yellow-winner'); if(yW) yW.innerHTML = emptyWinnerHTML('pts');
+        const gW = document.getElementById('green-winner'); if(gW) gW.innerHTML = emptyWinnerHTML('sprint pts');
+        const pW = document.getElementById('polkadot-winner'); if(pW) pW.innerHTML = emptyWinnerHTML('mountain pts');
+        
+        const emptyRow = (cols) => `<tr><td colspan="${cols}" style="text-align:center; padding: 20px; color: var(--text-muted);">Belum ada data</td></tr>`;
+        const yT = document.querySelector('#yellow-table tbody'); if(yT) yT.innerHTML = emptyRow(3);
+        const gT = document.querySelector('#green-table tbody'); if(gT) gT.innerHTML = emptyRow(4);
+        const pT = document.querySelector('#polkadot-table tbody'); if(pT) pT.innerHTML = emptyRow(4);
+        return;
+    }
 
     // PRE-CALCULATE BASE STATS FOR EVERYONE
     // totalPoints, maxGwScore, maxEtapeScore
@@ -432,6 +453,32 @@ function setupEventListeners() {
                 } else {
                     row.style.display = 'none';
                 }
+            });
+        });
+    }
+    
+    // Public Dashboard Search Feature
+    const publicSearch = document.getElementById('public-search');
+    if (publicSearch) {
+        publicSearch.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const tables = ['#yellow-table', '#green-table', '#polkadot-table'];
+            
+            tables.forEach(tableSelector => {
+                const rows = document.querySelectorAll(`${tableSelector} tbody tr`);
+                rows.forEach(row => {
+                    // Cek jika ini adalah baris "Belum ada data"
+                    if (row.cells.length === 1) return;
+                    
+                    const mName = row.querySelector('.m-name') ? row.querySelector('.m-name').textContent.toLowerCase() : '';
+                    const tName = row.querySelector('.t-name') ? row.querySelector('.t-name').textContent.toLowerCase() : '';
+                    
+                    if (mName.includes(query) || tName.includes(query)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
             });
         });
     }
