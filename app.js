@@ -718,7 +718,7 @@ function setupEventListeners() {
             while (!success && retries <= maxRetries) {
                 try {
                     const proxies = [
-                        'DIRECT', // Coba langsung (Berhasil jika pakai Ekstensi CORS)
+                        'https://corsproxy.io/?',
                         'https://api.allorigins.win/raw?url=',
                         'https://api.codetabs.com/v1/proxy?quest='
                     ];
@@ -807,7 +807,7 @@ function setupEventListeners() {
 
         while (!success && retries <= maxRetries) {
             try {
-                const proxies = ['DIRECT', 'https://api.allorigins.win/raw?url=', 'https://api.codetabs.com/v1/proxy?quest='];
+                const proxies = ['https://corsproxy.io/?', 'https://api.allorigins.win/raw?url=', 'https://api.codetabs.com/v1/proxy?quest='];
                 const proxy = proxies[retries];
                 const urlToFetch = `https://fantasy.premierleague.com/api/entry/${fplId}/history/`;
                 const fetchUrl = proxy === 'DIRECT' ? urlToFetch : `${proxy}${encodeURIComponent(urlToFetch)}`;
